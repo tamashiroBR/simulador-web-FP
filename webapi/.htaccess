@@ -1,12 +1,10 @@
 Options -Indexes
 RewriteEngine On
 
-# RewriteBase relativo: funciona em qualquer subdiretório de instalação.
-# Não é necessário alterar este arquivo independentemente do caminho usado
-# (ex: /webapi/, /ndse/client2/webapi/, /meuapp/api/, etc.)
-RewriteBase /
-
+# Sem RewriteBase: o Apache resolve o caminho relativo ao diretório onde
+# este .htaccess está localizado, funcionando em qualquer subdiretório
+# de instalação sem necessidade de alteração.
 RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^ index.php [QSA,L]
+RewriteRule ^(.*)$ index.php [QSA,L]
