@@ -1,18 +1,16 @@
 <?php
-// PHP 8 compatible: uses sequential LoadFlow instead of LoadFlowT (which requires pthreads)
-// Suppress HTML error output — only JSON must be returned
+// PHP 8 compatible: uses sequential LoadFlow instead of LoadFlowT (which requires pthreads).
+// NOTE: 'use' declarations are not allowed inside method scope (Slim renders templates via
+// require inside View::render()). Use the fully-qualified class name instead.
 ini_set('display_errors', 0);
 error_reporting(E_ALL);
 
-require __DIR__ . '/../bootstrap.php';
-
-use NDSE\Tools\LoadFlow;
-
 try {
+    require __DIR__ . '/../bootstrap.php';
+
     if (!is_null($data)) {
 
-        // json_decode returns stdClass objects and arrays of stdClass.
-        // The LoadFlow class expects plain indexed PHP arrays for bus and branch rows.
+        // json_decode returns stdClass objects; LoadFlow expects plain indexed PHP arrays.
         // Convert recursively: stdClass → array, nested arrays preserved.
         $toArray = function ($value) use (&$toArray) {
             if (is_object($value)) {
@@ -30,7 +28,7 @@ try {
             'branch' => $toArray($data['branch']),
         ];
 
-        $lf = new LoadFlow($dataArr);
+        $lf = new \NDSE\Tools\LoadFlow($dataArr);
         $lf->makeYbus();
         $result = $lf->run();
 
