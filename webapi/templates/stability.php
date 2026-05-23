@@ -1,7 +1,7 @@
 <?php 
 //header('Content-Type: application/json; charset=utf-8');
 //set_time_limit(0);
-require 'bootstrap.php';
+require __DIR__ . '/../bootstrap.php';
 
 use NDSE\Tools\TransientAnalysis;
 

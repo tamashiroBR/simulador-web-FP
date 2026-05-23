@@ -383,13 +383,24 @@ dhtmlxEvent(window,"load",function() {
 			url: 'http://localhost/NDSE/webapi/nws/v1/loadflow',
 			data: json,
 			contentType: 'text/plain',
+			dataType: 'json',
 			success: function (result) {
 				loadResult(result);
 			},
-			error: function (resp) {
+			error: function (resp, status, error) {
 				$("#iter").empty();
 				$("#loss").empty();
-				alert("Find error!!!");		
+				var msg = "Erro ao conectar com a webapi.\n";
+				if (resp.status === 0) {
+					msg += "Verifique se a webapi está rodando em http://localhost/NDSE/webapi/";
+				} else if (resp.status === 404) {
+					msg += "Endpoint não encontrado (404). Verifique o caminho da webapi e o mod_rewrite do Apache.";
+				} else if (resp.status === 500) {
+					msg += "Erro interno na webapi (500). Verifique os logs do PHP/Apache.";
+				} else {
+					msg += "HTTP " + resp.status + ": " + error;
+				}
+				$("#iter").html("<p style='color:red'>" + msg.replace(/\n/g, '<br>') + "</p>");
 			}
 		});
 	});

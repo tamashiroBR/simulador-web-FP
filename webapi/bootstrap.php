@@ -1,16 +1,16 @@
 <?php
 //header('Content-Type: text/html; charset=utf-8');
 
-require './src/NDSE/AutoLoader.php';
+require __DIR__ . '/src/NDSE/Autoloader.php';
 
-$loader = new Psr4AutoloaderClass;  
+$loader = new Psr4AutoloaderClass;
 
 // register the autoloader
-$loader->register();  
+$loader->register();
 
 // register the base directories for the namespace prefix
-$loader->addNamespace('NDSE', './src/NDSE/Core');
-$loader->addNamespace('NDSE\Math', './src/NDSE/Core/Math');
-$loader->addNamespace('NDSE\Tools', './src/NDSE/Core/Tools');
-$loader->addNamespace('NDSE\Models', './src/NDSE/Core/Models');
-$loader->addNamespace('NDSE\Models\Gen', './src/NDSE/Core/Models/Gen');
+$loader->addNamespace('NDSE',             __DIR__ . '/src/NDSE/Core');
+$loader->addNamespace('NDSE\Math',        __DIR__ . '/src/NDSE/Core/Math');
+$loader->addNamespace('NDSE\Tools',       __DIR__ . '/src/NDSE/Core/Tools');
+$loader->addNamespace('NDSE\Models',      __DIR__ . '/src/NDSE/Core/Models');
+$loader->addNamespace('NDSE\Models\Gen',  __DIR__ . '/src/NDSE/Core/Models/Gen');
