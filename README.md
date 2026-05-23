@@ -90,9 +90,7 @@ A pasta `cases/` contém arquivos JSON prontos para uso, baseados nos sistemas d
 git clone https://github.com/tamashiroBR/simulador-web-eletrico.git
 ```
 
-**Frontend:** abra `index.html` diretamente no navegador ou sirva o diretório raiz por qualquer servidor web.
-
-**Webapi:** copie a pasta `webapi/` para o caminho `/NDSE/webapi/` na raiz do servidor Apache (ex.: `/var/www/html/NDSE/webapi/`) e certifique-se de que `mod_rewrite` está habilitado. Consulte `webapi/README.md` para instruções detalhadas.
+Abra `index.html` diretamente no navegador ou sirva o diretório raiz por qualquer servidor web.
 
 ### Fluxo de Uso
 
