@@ -1,285 +1,145 @@
-# Simulador Web para Análise de Sistemas Elétricos
+# Simulador Web para Análise de Sistemas Elétricos de Potência
+
+## Origem do Projeto
+
+Este software é fruto de uma **dissertação de mestrado** defendida em outubro de 2016 na **Universidade Federal de Uberlândia (UFU)**, pelo **Programa de Pós-graduação em Engenharia Elétrica** da **Faculdade de Engenharia Elétrica (FEELT)**.
+
+> **TAMASHIRO, Márcio Augusto.** *Uma estratégia de interação na Web para a análise de sistemas elétricos de potência.* 2016. 127 f. Dissertação (Mestrado em Ciências) — Universidade Federal de Uberlândia, Uberlândia, 2016.
+> DOI: [https://doi.org/10.14393/ufu.te.2016.137](https://doi.org/10.14393/ufu.te.2016.137)
+
+O documento completo está disponível no Repositório Institucional da UFU:
+**[https://repositorio.ufu.br/handle/123456789/18396](https://repositorio.ufu.br/handle/123456789/18396)**
+
+**Orientador:** Prof. Geraldo Caixeta Guimarães
+
+**Banca examinadora:** Prof. Adelio Jose de Moraes, Prof. David Calhau Jorge, Prof. Edgard Afonso Lamounier Júnior, Prof. Sergio Batista da Silva.
+
+---
 
 ## Descrição do Projeto
 
-O **Simulador Web para Análise de Sistemas Elétricos** é uma aplicação web moderna e robusta desenvolvida em PHP 8 e JavaScript, projetada para permitir a simulação, análise e visualização de sistemas de potência elétricos de forma interativa e intuitiva. Este simulador oferece uma plataforma completa para engenheiros, pesquisadores e estudantes da área de engenharia elétrica realizarem análises complexas de sistemas elétricos através de uma interface web acessível de qualquer navegador.
+O simulador investiga e implementa uma **aplicação web para análise de sistemas elétricos de potência**, explorando dois aspectos centrais identificados como lacunas nas ferramentas existentes: a **colaboração em tempo real** entre usuários e a **interoperabilidade** com outras aplicações.
 
-## Características Principais
+A motivação parte da constatação de que os programas comerciais de análise de sistemas elétricos, embora computacionalmente eficientes, não são adequados para fins educacionais ou de pesquisa por não disponibilizarem o código-fonte. As alternativas acadêmicas, em geral escritas em MATLAB, FORTRAN ou C++, são distribuídas como aplicações desktop com interface pouco amigável e sem recursos de acesso remoto. Este trabalho propõe uma abordagem web que combina acessibilidade, colaboração e abertura do código.
 
-### 1. Interface Gráfica Interativa
+## Funcionalidades Implementadas
 
-A aplicação utiliza a biblioteca **DHTMLX** para fornecer uma interface gráfica profissional e responsiva. Os usuários podem interagir com componentes de sistema elétrico através de uma interface intuitiva que suporta:
+### Análise de Fluxo de Potência (Load Flow)
 
-- **Visualização de Componentes:** Representação visual de geradores, transformadores, linhas de transmissão, cargas e outros elementos de sistemas elétricos.
-- **Edição em Tempo Real:** Modificação de parâmetros de componentes sem necessidade de recarregar a página.
-- **Múltiplas Visualizações:** Suporte a diferentes modos de visualização (diagrama unifilar, fluxo de potência, etc.).
+O módulo principal da aplicação realiza o cálculo de fluxo de potência pelo **método de Newton-Raphson**, permitindo:
 
-### 2. Análise de Fluxo de Potência (Load Flow)
+- Entrada de dados de barras e ramos diretamente em grades editáveis na interface
+- Configuração de parâmetros de execução: potência base (MVA), número máximo de iterações, tolerância de convergência e verificação de limites de potência reativa
+- Carregamento de casos de teste a partir de **arquivos JSON** via seleção de arquivo no navegador (sem necessidade de servidor de banco de dados)
+- Exibição dos resultados de tensão e ângulo por barra, fluxos de potência ativa e reativa por ramo, e perdas totais do sistema
+- Indicação do número de iterações até a convergência ou mensagem de não convergência
 
-Um dos módulos principais do simulador é a análise de fluxo de potência, que permite:
+### Interface com Grades DHTMLX
 
-- **Cálculo de Fluxo de Potência:** Determina a distribuição de potência ativa e reativa através das linhas de transmissão.
-- **Análise de Tensão:** Calcula as magnitudes e ângulos de fase das tensões em cada barra do sistema.
-- **Perdas no Sistema:** Quantifica as perdas de potência ativa e reativa nas linhas de transmissão.
-- **Verificação de Limites:** Identifica violações de limites de tensão e carregamento de linhas.
+A entrada e visualização de dados é feita por meio de **grades interativas** baseadas na biblioteca DHTMLX, organizadas em:
 
-### 3. Análise de Estabilidade Transitória
+| Grade | Conteúdo |
+|-------|----------|
+| **OPTIONS** | Potência base, máximo de iterações, tolerância e flag de limite Q |
+| **BUS** | Dados de barras: tipo, geração, carga, shunt, tensão e ângulo iniciais, limites de reativo |
+| **BRANCH** | Dados de ramos: resistência, reatância, susceptância shunt, tap e ângulo de defasagem |
+| **BUS RESULT** | Resultados por barra: tensão, ângulo, potências geradas e consumidas |
+| **BRANCH RESULT** | Resultados por ramo: fluxos de P e Q nos dois sentidos e perdas |
 
-O simulador também oferece recursos para análise de estabilidade transitória:
+### Colaboração em Tempo Real
 
-- **Simulação Dinâmica:** Simula o comportamento do sistema após distúrbios (como faltas ou desligamentos de linhas).
-- **Resposta Temporal:** Mostra a evolução temporal de variáveis do sistema (velocidade de rotores, ângulos, tensões).
-- **Critério de Estabilidade:** Avalia se o sistema permanece estável após o distúrbio.
-- **Análise de Sensibilidade:** Permite estudar o impacto de diferentes parâmetros na estabilidade do sistema.
+A aplicação integra o **TogetherJS** (Mozilla), que permite que múltiplos usuários trabalhem simultaneamente no mesmo caso, com sincronização em tempo real de todas as alterações nas grades (adição/remoção de barras e ramos, edição de células e carregamento de arquivos).
 
-### 4. Conectores de Dados Modernos (PHP 8)
+### Comunicação com a API de Cálculo
 
-O projeto utiliza conectores DHTMLX atualizados para PHP 8, oferecendo:
-
-- **Compatibilidade Total com PHP 8:** Código refatorado que elimina funções depreciadas (`mysql_*`) e utiliza `mysqli` moderno.
-- **Prepared Statements:** Implementação de consultas preparadas para máxima segurança contra SQL injection.
-- **Type Hints Completos:** Todos os métodos possuem type hints explícitos para melhor segurança de tipo.
-- **Tratamento Robusto de Erros:** Exceções bem estruturadas e logging detalhado.
-
-### 5. Arquitetura em Camadas
-
-O projeto segue uma arquitetura bem definida:
-
-```
-┌─────────────────────────────────────┐
-│     Frontend (HTML/CSS/JavaScript)  │
-│  - Interface DHTMLX                 │
-│  - Visualização de dados            │
-│  - Interação do usuário             │
-└──────────────────┬──────────────────┘
-                   │
-┌──────────────────▼──────────────────┐
-│  Backend (PHP 8 / Conectores)       │
-│  - Processamento de dados           │
-│  - Lógica de simulação              │
-│  - Gerenciamento de banco de dados  │
-└──────────────────┬──────────────────┘
-                   │
-┌──────────────────▼──────────────────┐
-│  Banco de Dados (MySQL/MariaDB)     │
-│  - Armazenamento de projetos        │
-│  - Histórico de simulações          │
-│  - Parâmetros de componentes        │
-└─────────────────────────────────────┘
-```
+O frontend envia os dados em formato **JSON** via requisição HTTP POST para a API de cálculo (`webapi/nws/v1/loadflow`), que executa o algoritmo de Newton-Raphson no servidor e retorna os resultados para exibição.
 
 ## Tecnologias Utilizadas
 
-### Backend
-- **PHP 8.0+:** Linguagem de programação do servidor
-- **MySQLi:** Extensão moderna para acesso a banco de dados MySQL
-- **DHTMLX Connectors:** Framework para conectar interface com dados
-
 ### Frontend
-- **HTML5:** Marcação semântica
-- **CSS3:** Estilização responsiva
-- **JavaScript (ES6+):** Lógica de cliente
-- **DHTMLX Library:** Componentes UI profissionais
-- **jQuery:** Manipulação do DOM
+- **HTML5 / CSS3:** Estrutura e estilização da interface
+- **JavaScript:** Lógica de cliente e manipulação das grades
+- **jQuery 2.0.3:** Requisições AJAX e manipulação do DOM
+- **DHTMLX:** Componentes de grade interativa (leitura, edição e exibição de dados)
+- **TogetherJS (Mozilla):** Colaboração em tempo real entre usuários
 
-### Banco de Dados
-- **MySQL 5.7+** ou **MariaDB 10.2+**
+### Backend
+- **PHP 8.0+:** Conectores DHTMLX atualizados (eliminação das funções `mysql_*` depreciadas, uso de `mysqli` com prepared statements e type hints)
 
-## Casos de Uso
+### Formato de Dados
+- **JSON:** Formato único para troca de dados entre frontend, API e arquivos de casos de teste
 
-### 1. Educação e Pesquisa
-Estudantes e pesquisadores podem usar o simulador para:
-- Aprender conceitos de análise de sistemas elétricos
-- Realizar experimentos numéricos
-- Validar teorias e modelos matemáticos
-- Publicar resultados de pesquisa
+## Estrutura de Diretórios
 
-### 2. Planejamento de Sistemas Elétricos
-Engenheiros de planejamento podem utilizar para:
-- Avaliar a viabilidade de novas linhas de transmissão
-- Estudar o impacto de novas gerações (solar, eólica, etc.)
-- Analisar cenários de contingência
-- Otimizar a operação do sistema
+```
+simulador-web-eletrico/
+├── codebase/                  # Biblioteca DHTMLX
+│   ├── connector/             # Conectores PHP 8 (sem banco de dados)
+│   ├── dhtmlx.js              # Biblioteca JavaScript DHTMLX
+│   └── dhtmlx.css             # Estilos DHTMLX
+├── img/                       # Imagens da interface
+├── cases/                     # Casos de teste em formato JSON
+│   ├── README.md              # Documentação do formato e dos casos
+│   ├── radial2bus.json        # Sistema radial de 2 barras (didático)
+│   ├── ieee3bus.json          # IEEE 3 barras
+│   ├── ieee5bus.json          # IEEE 5 barras (Stevenson)
+│   ├── ieee9bus.json          # IEEE 9 barras (Anderson & Fouad)
+│   ├── ieee14bus.json         # IEEE 14 barras
+│   ├── ieee30bus.json         # IEEE 30 barras
+│   └── transformer4bus.json   # 4 barras com transformador (tap ≠ 1,0)
+├── tests/
+│   └── test_connectors.php    # Testes dos conectores PHP 8
+├── app.js                     # Lógica principal da aplicação
+├── index.html                 # Página principal
+├── style.css                  # Estilos customizados
+└── README.md                  # Este arquivo
+```
 
-### 3. Operação em Tempo Real
-Operadores de sistema podem usar para:
-- Simular cenários de operação
-- Treinar procedimentos de emergência
-- Avaliar limites operacionais
-- Planejar manutenção
+## Casos de Teste
 
-### 4. Consultoria e Engenharia
-Consultores podem utilizar para:
-- Estudos de impacto ambiental
-- Análise de confiabilidade
-- Otimização de custos
-- Relatórios técnicos
+A pasta `cases/` contém arquivos JSON prontos para uso, baseados nos sistemas de teste clássicos da literatura:
 
-## Funcionalidades Detalhadas
+| Arquivo | Sistema | Barras | Ramos |
+|---------|---------|--------|-------|
+| `radial2bus.json` | Radial 2 barras | 2 | 1 |
+| `ieee3bus.json` | IEEE 3 barras | 3 | 3 |
+| `ieee5bus.json` | IEEE 5 barras | 5 | 7 |
+| `ieee9bus.json` | IEEE 9 barras | 9 | 9 |
+| `ieee14bus.json` | IEEE 14 barras | 14 | 20 |
+| `ieee30bus.json` | IEEE 30 barras | 30 | 41 |
+| `transformer4bus.json` | 4 barras c/ transformador | 4 | 4 |
 
-### Análise de Fluxo de Potência
+Consulte `cases/README.md` para a descrição completa do formato JSON e de cada coluna.
 
-**O que é:** O fluxo de potência é a distribuição de potência elétrica através das linhas de transmissão de um sistema. Esta análise calcula:
+## Como Usar
 
-- **Fluxos de Potência Ativa (P):** Potência real transmitida
-- **Fluxos de Potência Reativa (Q):** Potência reativa necessária para manutenção de tensão
-- **Perdas Técnicas:** Perdas de energia nas linhas e transformadores
-- **Perfil de Tensão:** Variação de tensão ao longo do sistema
+### Requisitos
 
-**Aplicações:**
-- Verificar se o sistema pode suprir toda a demanda
-- Identificar linhas sobrecarregadas
-- Avaliar qualidade de tensão
-- Otimizar despacho de geração
+- Servidor web com **PHP 8.0** ou superior
+- Navegador moderno com suporte a `FileReader` API
+- Acesso à API de cálculo (`webapi/nws/v1/loadflow`) — necessária apenas para executar o fluxo de potência
 
-### Análise de Estabilidade Transitória
+> **Nota:** O frontend não utiliza banco de dados. Todos os dados são manipulados em memória no navegador e persistidos apenas via arquivos JSON locais.
 
-**O que é:** Estuda o comportamento dinâmico do sistema após perturbações, como:
-
-- Faltas (curtos-circuitos)
-- Desligamento de linhas
-- Perda de geração
-- Variações de carga
-
-**Parâmetros Analisados:**
-- **Ângulo do Rotor:** Diferença angular entre rotor e campo magnético
-- **Velocidade do Rotor:** Desvio da velocidade síncrona
-- **Tensão Terminal:** Tensão nos terminais do gerador
-- **Corrente de Campo:** Corrente de excitação do gerador
-
-**Critério de Estabilidade:**
-Um sistema é considerado estável se, após uma perturbação, ele retorna a um novo ponto de equilíbrio sem oscilações divergentes.
-
-## Requisitos do Sistema
-
-### Mínimos
-- PHP 8.0 ou superior
-- MySQL 5.7 ou MariaDB 10.2
-- 512 MB de RAM
-- 100 MB de espaço em disco
-
-### Recomendados
-- PHP 8.2 ou superior
-- MySQL 8.0 ou MariaDB 10.5+
-- 2 GB de RAM
-- 500 MB de espaço em disco
-- Conexão de internet de alta velocidade
-
-## Instalação
-
-### 1. Clonar o Repositório
+### Instalação
 
 ```bash
 git clone https://github.com/tamashiroBR/simulador-web-eletrico.git
-cd simulador-web-eletrico
 ```
 
-### 2. Configurar o Servidor Web
+Copie o diretório para a raiz do servidor web e acesse `http://localhost/simulador-web-eletrico/`.
 
-Configure seu servidor web (Apache, Nginx) para apontar para o diretório do projeto.
+### Fluxo de Uso
 
-**Apache (.htaccess):**
-```apache
-<IfModule mod_rewrite.c>
-    RewriteEngine On
-    RewriteBase /
-    RewriteRule ^index\.html$ - [L]
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule . /index.html [L]
-</IfModule>
-```
+1. **Carregar um caso:** Clique no campo de seleção de arquivo e escolha um `.json` da pasta `cases/`
+2. **Editar dados:** Modifique barras e ramos diretamente nas grades, ou adicione/remova linhas pelos botões **Add Bus**, **Remove Bus**, **Add Branch**, **Remove Branch**
+3. **Executar:** Clique em **Run Load Flow** — os dados são enviados à API e os resultados são exibidos nas grades de resultado
+4. **Colaborar:** Clique em **Start TogetherJS** para convidar outro usuário e trabalhar em tempo real no mesmo caso
 
-### 3. Configurar Banco de Dados
+## Referências
 
-```bash
-# Criar banco de dados
-mysql -u root -p < database/schema.sql
-
-# Criar usuário
-mysql -u root -p -e "CREATE USER 'simulador'@'localhost' IDENTIFIED BY 'senha_segura';"
-mysql -u root -p -e "GRANT ALL PRIVILEGES ON simulador.* TO 'simulador'@'localhost';"
-```
-
-### 4. Configurar Conexão com Banco de Dados
-
-Editar `codebase/connector/config.php`:
-
-```php
-<?php
-define('DB_HOST', 'localhost');
-define('DB_USER', 'simulador');
-define('DB_PASS', 'senha_segura');
-define('DB_NAME', 'simulador');
-?>
-```
-
-### 5. Acessar a Aplicação
-
-Abrir no navegador: `http://localhost/simulador-web-eletrico/`
-
-## Uso Básico
-
-### Criar um Novo Projeto
-
-1. Clicar em "Novo Projeto"
-2. Inserir nome e descrição
-3. Selecionar tipo de sistema (radial, malhado, etc.)
-4. Clicar em "Criar"
-
-### Adicionar Componentes
-
-1. Selecionar componente na barra de ferramentas
-2. Clicar no canvas para posicionar
-3. Inserir parâmetros (tensão nominal, potência, etc.)
-4. Confirmar
-
-### Executar Simulação
-
-1. Clicar em "Executar Análise"
-2. Selecionar tipo de análise (fluxo de potência, transitória)
-3. Configurar parâmetros
-4. Clicar em "Simular"
-5. Visualizar resultados
-
-### Exportar Resultados
-
-1. Clicar em "Exportar"
-2. Selecionar formato (PDF, Excel, CSV)
-3. Configurar opções
-4. Clicar em "Exportar"
-
-## Exemplos de Sistemas
-
-O simulador inclui exemplos pré-configurados:
-
-### 1. Sistema IEEE 14 Barras
-- 14 barras
-- 5 geradores
-- 11 linhas de transmissão
-- Usado para testes de algoritmos
-
-### 2. Sistema IEEE 30 Barras
-- 30 barras
-- 6 geradores
-- 41 linhas de transmissão
-- Caso de teste padrão
-
-### 3. Sistema Radial Simples
-- 5 barras
-- 1 gerador
-- 4 linhas
-- Ideal para aprendizado
-
-## Licença
-
-Este projeto está licenciado sob a Licença MIT - veja o arquivo LICENSE para detalhes.
-
-## Referências Técnicas
-
-- [IEEE Standard 1110 - IEEE Guide for Synchronous Generator Modeling Practices](https://standards.ieee.org/)
-- [Power System Dynamics and Stability](https://www.wiley.com/)
-- [DHTMLX Documentation](https://dhtmlx.com/docs/)
-- [PHP 8 Documentation](https://www.php.net/manual/en/index.php)
-
-**Desenvolvido com ❤️ para a comunidade de Engenharia Elétrica**
+- TAMASHIRO, M. A. *Uma estratégia de interação na Web para a análise de sistemas elétricos de potência.* UFU, 2016. Disponível em: [https://repositorio.ufu.br/handle/123456789/18396](https://repositorio.ufu.br/handle/123456789/18396)
+- DHTMLX Documentation: [https://dhtmlx.com/docs/](https://dhtmlx.com/docs/)
+- IEEE Power Systems Test Case Archive: [https://labs.ece.uw.edu/pstca/](https://labs.ece.uw.edu/pstca/)
+- STEVENSON, W. D. *Elements of Power System Analysis.* McGraw-Hill, 1982.
+- ANDERSON, P. M.; FOUAD, A. A. *Power System Control and Stability.* IEEE Press, 2003.
