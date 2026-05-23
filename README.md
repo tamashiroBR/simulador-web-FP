@@ -85,28 +85,6 @@ O projeto segue uma arquitetura bem definida:
 ### Banco de Dados
 - **MySQL 5.7+** ou **MariaDB 10.2+**
 
-## Estrutura de Diretórios
-
-```
-simulador-web-eletrico/
-├── codebase/                          # Biblioteca DHTMLX
-│   ├── connector/                     # Conectores de dados (PHP 8)
-│   │   ├── base_connector.php         # Classe base
-│   │   ├── data_connector.php         # Conector de dados
-│   │   ├── db_common.php              # Wrapper de banco de dados
-│   │   ├── db_mysqli.php              # Implementação MySQLi
-│   │   ├── db_pdo.php                 # Implementação PDO
-│   │   ├── dataprocessor.php          # Processador de dados
-│   │   └── ...                        # Outros conectores
-│   ├── dhtmlx.js                      # Biblioteca JavaScript
-│   └── dhtmlx.css                     # Estilos CSS
-├── img/                               # Imagens e ícones
-├── app.js                             # Aplicação principal (JavaScript)
-├── index.html                         # Página principal
-├── style.css                          # Estilos customizados
-└── README.md                          # Este arquivo
-```
-
 ## Casos de Uso
 
 ### 1. Educação e Pesquisa
@@ -293,30 +271,9 @@ O simulador inclui exemplos pré-configurados:
 - 4 linhas
 - Ideal para aprendizado
 
-## Contribuindo
-
-Contribuições são bem-vindas! Por favor:
-
-1. Fazer fork do projeto
-2. Criar uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abrir um Pull Request
-
 ## Licença
 
 Este projeto está licenciado sob a Licença MIT - veja o arquivo LICENSE para detalhes.
-
-## Autores
-
-- **NDSE Team** - Desenvolvimento inicial
-- **Contribuidores** - Veja [CONTRIBUTORS.md](CONTRIBUTORS.md)
-
-## Suporte
-
-Para suporte, abra uma issue no GitHub ou entre em contato através de:
-- Email: support@ndse.com
-- GitHub Issues: https://github.com/tamashiroBR/simulador-web-eletrico/issues
 
 ## Referências Técnicas
 
@@ -324,32 +281,5 @@ Para suporte, abra uma issue no GitHub ou entre em contato através de:
 - [Power System Dynamics and Stability](https://www.wiley.com/)
 - [DHTMLX Documentation](https://dhtmlx.com/docs/)
 - [PHP 8 Documentation](https://www.php.net/manual/en/index.php)
-
-## Roadmap
-
-- [ ] Suporte a análise de curto-circuito
-- [ ] Análise harmônica
-- [ ] Otimização de fluxo de potência (OPF)
-- [ ] Integração com SCADA
-- [ ] App mobile (React Native)
-- [ ] Colaboração em tempo real (WebSocket)
-- [ ] Exportação para PowerWorld, PSSE
-- [ ] Machine Learning para previsão de carga
-
-## Changelog
-
-### v2.0.0 (Atual)
-- Atualização para PHP 8
-- Refatoração de conectores de banco de dados
-- Melhorias de segurança (prepared statements)
-- Type hints completos
-
-### v1.0.0
-- Release inicial
-- Análise de fluxo de potência
-- Análise de estabilidade transitória
-- Interface DHTMLX
-
----
 
 **Desenvolvido com ❤️ para a comunidade de engenharia elétrica**
