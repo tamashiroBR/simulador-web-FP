@@ -70,38 +70,6 @@ O frontend envia os dados em formato **JSON** via requisição HTTP POST para a 
 ### Formato de Dados
 - **JSON:** Formato único para troca de dados entre o frontend, a webapi e os arquivos de casos de teste
 
-## Estrutura de Diretórios
-
-```
-simulador-web-eletrico/
-├── codebase/                  # Biblioteca DHTMLX (JavaScript/CSS)
-│   ├── dhtmlx.js              # Biblioteca JavaScript DHTMLX
-│   └── dhtmlx.css             # Estilos DHTMLX
-├── img/                       # Imagens da interface
-├── cases/                     # Casos de teste em formato JSON
-│   ├── README.md              # Documentação do formato e dos casos
-│   ├── radial2bus.json        # Sistema radial de 2 barras (didático)
-│   ├── ieee3bus.json          # IEEE 3 barras
-│   ├── ieee5bus.json          # IEEE 5 barras (Stevenson)
-│   ├── ieee9bus.json          # IEEE 9 barras (Anderson & Fouad)
-│   ├── ieee14bus.json         # IEEE 14 barras
-│   ├── ieee30bus.json         # IEEE 30 barras
-│   └── transformer4bus.json   # 4 barras com transformador (tap ≠ 1,0)
-├── webapi/                    # API REST de cálculo (PHP 8 + Slim Framework v2)
-│   ├── index.php              # Ponto de entrada e definição de rotas
-│   ├── bootstrap.php          # Autoloader PSR-4
-│   ├── .htaccess              # Rewrite rules para Apache
-│   ├── Slim/                  # Slim Framework v2.6.1
-│   ├── templates/             # Templates dos endpoints (loadflow, stability)
-│   ├── src/NDSE/Core/Math/    # Biblioteca matemática (Complex, Matrix, Sparse, LinAlg)
-│   ├── src/NDSE/Core/Tools/   # Algoritmos de cálculo (LoadFlow, TransientAnalysis)
-│   └── README.md              # Instruções de instalação da webapi
-├── app.js                     # Lógica principal do frontend
-├── index.html                 # Página principal
-├── style.css                  # Estilos customizados
-└── README.md                  # Este arquivo
-```
-
 ## Casos de Teste
 
 A pasta `cases/` contém arquivos JSON prontos para uso, baseados nos sistemas de teste clássicos da literatura:
@@ -115,18 +83,6 @@ A pasta `cases/` contém arquivos JSON prontos para uso, baseados nos sistemas d
 | `ieee14bus.json` | IEEE 14 barras | 14 | 20 |
 | `ieee30bus.json` | IEEE 30 barras | 30 | 41 |
 | `transformer4bus.json` | 4 barras c/ transformador | 4 | 4 |
-
-Consulte `cases/README.md` para a descrição completa do formato JSON e de cada coluna.
-
-## Como Usar
-
-### Requisitos
-
-- Navegador moderno com suporte a `FileReader` API (para o frontend)
-- Servidor web **Apache** com **PHP 8.0+** e `mod_rewrite` habilitado (para a webapi)
-- **Sem banco de dados** — o frontend manipula os dados inteiramente no navegador; a webapi executa os cálculos em memória a partir do JSON recebido
-
-> **Nota sobre a arquitetura:** este projeto é composto por dois componentes independentes. O **frontend** (`index.html` + `app.js`) é uma aplicação puramente estática que roda no navegador. A **webapi** (`webapi/`) é o servidor de cálculo em PHP que o frontend consulta via AJAX. Ambos precisam estar acessíveis para que a simulação funcione.
 
 ### Instalação
 
