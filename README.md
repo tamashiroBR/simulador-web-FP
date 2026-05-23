@@ -282,4 +282,4 @@ Este projeto está licenciado sob a Licença MIT - veja o arquivo LICENSE para d
 - [DHTMLX Documentation](https://dhtmlx.com/docs/)
 - [PHP 8 Documentation](https://www.php.net/manual/en/index.php)
 
-**Desenvolvido com ❤️ para a comunidade de engenharia elétrica**
+**Desenvolvido com ❤️ para a comunidade de Engenharia Elétrica**
