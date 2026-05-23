@@ -18,7 +18,7 @@ O documento completo está disponível no Repositório Institucional da UFU:
 
 ## Descrição do Projeto
 
-O simulador investiga e implementa uma **aplicação web para análise de sistemas elétricos de potência**, explorando dois aspectos centrais identificados como lacunas nas ferramentas existentes: a **colaboração em tempo real** entre usuários e a **interoperabilidade** com outras aplicações.
+Este software é parte do simulador que implementa uma **aplicação web para análise de sistemas elétricos de potência**, explorando dois aspectos centrais identificados como lacunas nas ferramentas existentes: a **colaboração em tempo real** entre usuários e a **interoperabilidade** com outras aplicações.
 
 A motivação parte da constatação de que os programas comerciais de análise de sistemas elétricos, embora computacionalmente eficientes, não são adequados para fins educacionais ou de pesquisa por não disponibilizarem o código-fonte. As alternativas acadêmicas, em geral escritas em MATLAB, FORTRAN ou C++, são distribuídas como aplicações desktop com interface pouco amigável e sem recursos de acesso remoto. Este trabalho propõe uma abordagem web que combina acessibilidade, colaboração e abertura do código.
 
