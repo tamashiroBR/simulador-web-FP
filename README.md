@@ -1,4 +1,4 @@
-# Simulador Web para Análise de Sistemas Elétricos de Potência
+# Simulador Web para o Cálculo do Fluxo de Potência de Sistemas Elétricos
 
 ## Origem do Projeto
 
