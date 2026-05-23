@@ -1,25 +1,4 @@
 <?php
-// Suppress any HTML error output — all responses must be JSON
-ini_set('display_errors', 0);
-ini_set('display_startup_errors', 0);
-error_reporting(E_ALL);
-
-// Catch fatal errors and return JSON instead of HTML
-register_shutdown_function(function () {
-    $error = error_get_last();
-    if ($error && in_array($error['type'], [E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR])) {
-        // Clean any partial output already sent
-        if (ob_get_level()) ob_end_clean();
-        header('Content-Type: application/json');
-        header('Access-Control-Allow-Origin: *');
-        echo json_encode([
-            'error' => $error['message'],
-            'file'  => $error['file'],
-            'line'  => $error['line']
-        ]);
-    }
-});
-
 ob_start();
 
 require __DIR__ . '/Slim/Slim.php';
