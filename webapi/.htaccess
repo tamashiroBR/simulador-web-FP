@@ -1,6 +1,6 @@
 RewriteEngine On
-RewriteBase /NDSE/webapi/
+RewriteBase /ndse/client2/webapi/
 RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /NDSE/webapi/index.php [L]
+RewriteRule . /ndse/client2/webapi/index.php [L]

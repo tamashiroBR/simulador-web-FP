@@ -380,7 +380,7 @@ dhtmlxEvent(window,"load",function() {
 		gridbranchresult.clearAll();
 		$.ajax({
 			type: 'POST',
-			url: 'http://localhost/NDSE/webapi/nws/v1/loadflow',
+			url: 'http://localhost/ndse/client2/webapi/nws/v1/loadflow',
 			data: json,
 			contentType: 'text/plain',
 			dataType: 'json',
