@@ -56,25 +56,25 @@ O frontend envia os dados em formato **JSON** via requisição HTTP POST para a 
 
 ## Tecnologias Utilizadas
 
-### Frontend
+### Frontend (este repositório)
 - **HTML5 / CSS3:** Estrutura e estilização da interface
 - **JavaScript:** Lógica de cliente e manipulação das grades
 - **jQuery 2.0.3:** Requisições AJAX e manipulação do DOM
 - **DHTMLX:** Componentes de grade interativa (leitura, edição e exibição de dados)
 - **TogetherJS (Mozilla):** Colaboração em tempo real entre usuários
 
-### Backend
-- **PHP 8.0+:** Conectores DHTMLX atualizados (eliminação das funções `mysql_*` depreciadas, uso de `mysqli` com prepared statements e type hints)
+### Backend de Cálculo (webapi — neste repositório)
+- **PHP 8.0+:** API REST implementada com Slim Framework v2, responsável por executar o algoritmo de Newton-Raphson no servidor
+- **Sem banco de dados:** todos os cálculos são realizados em memória a partir dos dados recebidos via JSON
 
 ### Formato de Dados
-- **JSON:** Formato único para troca de dados entre frontend, API e arquivos de casos de teste
+- **JSON:** Formato único para troca de dados entre o frontend, a webapi e os arquivos de casos de teste
 
 ## Estrutura de Diretórios
 
 ```
 simulador-web-eletrico/
-├── codebase/                  # Biblioteca DHTMLX
-│   ├── connector/             # Conectores PHP 8 (sem banco de dados)
+├── codebase/                  # Biblioteca DHTMLX (JavaScript/CSS)
 │   ├── dhtmlx.js              # Biblioteca JavaScript DHTMLX
 │   └── dhtmlx.css             # Estilos DHTMLX
 ├── img/                       # Imagens da interface
@@ -87,9 +87,16 @@ simulador-web-eletrico/
 │   ├── ieee14bus.json         # IEEE 14 barras
 │   ├── ieee30bus.json         # IEEE 30 barras
 │   └── transformer4bus.json   # 4 barras com transformador (tap ≠ 1,0)
-├── tests/
-│   └── test_connectors.php    # Testes dos conectores PHP 8
-├── app.js                     # Lógica principal da aplicação
+├── webapi/                    # API REST de cálculo (PHP 8 + Slim Framework v2)
+│   ├── index.php              # Ponto de entrada e definição de rotas
+│   ├── bootstrap.php          # Autoloader PSR-4
+│   ├── .htaccess              # Rewrite rules para Apache
+│   ├── Slim/                  # Slim Framework v2.6.1
+│   ├── templates/             # Templates dos endpoints (loadflow, stability)
+│   ├── src/NDSE/Core/Math/    # Biblioteca matemática (Complex, Matrix, Sparse, LinAlg)
+│   ├── src/NDSE/Core/Tools/   # Algoritmos de cálculo (LoadFlow, TransientAnalysis)
+│   └── README.md              # Instruções de instalação da webapi
+├── app.js                     # Lógica principal do frontend
 ├── index.html                 # Página principal
 ├── style.css                  # Estilos customizados
 └── README.md                  # Este arquivo
@@ -115,11 +122,11 @@ Consulte `cases/README.md` para a descrição completa do formato JSON e de cada
 
 ### Requisitos
 
-- Servidor web com **PHP 8.0** ou superior
-- Navegador moderno com suporte a `FileReader` API
-- Acesso à API de cálculo (`webapi/nws/v1/loadflow`) — necessária apenas para executar o fluxo de potência
+- Navegador moderno com suporte a `FileReader` API (para o frontend)
+- Servidor web **Apache** com **PHP 8.0+** e `mod_rewrite` habilitado (para a webapi)
+- **Sem banco de dados** — o frontend manipula os dados inteiramente no navegador; a webapi executa os cálculos em memória a partir do JSON recebido
 
-> **Nota:** O frontend não utiliza banco de dados. Todos os dados são manipulados em memória no navegador e persistidos apenas via arquivos JSON locais.
+> **Nota sobre a arquitetura:** este projeto é composto por dois componentes independentes. O **frontend** (`index.html` + `app.js`) é uma aplicação puramente estática que roda no navegador. A **webapi** (`webapi/`) é o servidor de cálculo em PHP que o frontend consulta via AJAX. Ambos precisam estar acessíveis para que a simulação funcione.
 
 ### Instalação
 
@@ -127,7 +134,9 @@ Consulte `cases/README.md` para a descrição completa do formato JSON e de cada
 git clone https://github.com/tamashiroBR/simulador-web-eletrico.git
 ```
 
-Copie o diretório para a raiz do servidor web e acesse `http://localhost/simulador-web-eletrico/`.
+**Frontend:** abra `index.html` diretamente no navegador ou sirva o diretório raiz por qualquer servidor web.
+
+**Webapi:** copie a pasta `webapi/` para o caminho `/NDSE/webapi/` na raiz do servidor Apache (ex.: `/var/www/html/NDSE/webapi/`) e certifique-se de que `mod_rewrite` está habilitado. Consulte `webapi/README.md` para instruções detalhadas.
 
 ### Fluxo de Uso
 
