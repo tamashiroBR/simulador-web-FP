@@ -1,105 +1,105 @@
-# Simulador Web para o Cálculo do Fluxo de Potência em Sistemas Elétricos
+# Web Simulator for Power Flow Calculation in Electrical Systems
 
-## Origem do Projeto
+## Project Origin
 
-Este software é fruto de uma **tese de doutorado** defendida em outubro de 2016 na **Universidade Federal de Uberlândia (UFU)**, pelo **Programa de Pós-graduação em Engenharia Elétrica** da **Faculdade de Engenharia Elétrica (FEELT)**.
+This software is part of the doctoral thesis defended at the Federal University of Uberlândia, Faculty of Electrical Engineering. The full thesis d **doctoral thesis** defended in October 2016 at the **Federal University of Uberlândia (UFU)**, by the **Graduate Program in Electrical Engineering** of the **Faculty of Electrical Engineering (FEELT)**.
 
-> **TAMASHIRO, Márcio Augusto.** *Uma estratégia de interação na Web para a análise de sistemas elétricos de potência.* 2016. 127 f. Tese (Doutorado em Ciências) — Universidade Federal de Uberlândia, Uberlândia, 2016.
+> **TAMASHIRO, Márcio Augusto.** *A Web interaction strategy for the analysis of electrical power systems.* 2016. 127 f. Thesis (Doctorate in Sciences) — Federal University of Uberlândia, Uberlândia, 2016.
 > DOI: [https://doi.org/10.14393/ufu.te.2016.137](https://doi.org/10.14393/ufu.te.2016.137)
 
-O documento completo está disponível no Repositório Institucional da UFU:
+The complete document is available in the UFU Institutional Repository:
 **[https://repositorio.ufu.br/handle/123456789/18396](https://repositorio.ufu.br/handle/123456789/18396)**
 
-**Orientador:** Prof. PhD Geraldo Caixeta Guimarães
+**Doctoral advisor:** Prof. PhD Geraldo Caixeta Guimarães
 
-**Banca examinadora:** Prof. Dr Adelio Jose de Moraes (in memoriam), Prof. Dr David Calhau Jorge, Prof. PhD Edgard Afonso Lamounier Júnior, Prof. Dr Sergio Batista da Silva.
+**Examination Board:** Prof. Dr Adelio Jose de Moraes (in memoriam), Prof. Dr David Calhau Jorge, Prof. PhD Edgard Afonso Lamounier Júnior, Prof. Dr Sergio Batista da Silva.
 
 ---
 
-## Descrição do Projeto
+## Project Description
 
-Este software é parte do simulador que implementa uma **aplicação web para análise de sistemas elétricos de potência**, explorando dois aspectos centrais identificados como lacunas nas ferramentas existentes: a **colaboração em tempo real** entre usuários e a **interoperabilidade** com outras aplicações.
+This software is part of the simulator that implements a **web application for the analysis of electrical power systems**, exploring two central aspects identified as gaps in existing tools: **real-time collaboration** among users and **interoperability** with other applications.
 
-A motivação parte da constatação de que os programas comerciais de análise de sistemas elétricos, embora computacionalmente eficientes, não são adequados para fins educacionais ou de pesquisa por não disponibilizarem o código-fonte. As alternativas acadêmicas, em geral escritas em MATLAB, FORTRAN ou C++, são distribuídas como aplicações desktop com interface pouco amigável e sem recursos de acesso remoto. Este trabalho propõe uma abordagem web que combina acessibilidade, colaboração e abertura do código.
+The motivation stems from the realization that commercial programs for electrical systems analysis, although computationally efficient, are not suitable for educational or research purposes because they do not make their source code available. Academic alternatives, usually written in MATLAB, FORTRAN, or C++, are distributed as desktop applications with user-unfriendly interfaces and no remote access features. This work proposes a web approach that combines accessibility, collaboration, and open source code.
 
-## Funcionalidades Implementadas
+## Implemented Features
 
-### Análise de Fluxo de Potência (Load Flow)
+### Power Flow Analysis (Load Flow)
 
-O módulo principal da aplicação realiza o cálculo de fluxo de potência pelo **método de Newton-Raphson**, permitindo:
+The main module of the application performs the power flow calculation using the **Newton-Raphson method**, allowing:
 
-- Entrada de dados de barras e ramos diretamente em grades editáveis na interface
-- Configuração de parâmetros de execução: potência base (MVA), número máximo de iterações, tolerância de convergência e verificação de limites de potência reativa
-- Carregamento de casos de teste a partir de **arquivos JSON** via seleção de arquivo no navegador (sem necessidade de servidor de banco de dados)
-- Exibição dos resultados de tensão e ângulo por barra, fluxos de potência ativa e reativa por ramo, e perdas totais do sistema
-- Indicação do número de iterações até a convergência ou mensagem de não convergência
+- Input of bus and branch data directly into editable grids in the interface
+- Configuration of execution parameters: base power (MVA), maximum number of iterations, convergence tolerance, and reactive power limit checking
+- Loading of test cases from **JSON files** via file selection in the browser (no database server required)
+- Display of voltage and angle results per bus, active and reactive power flows per branch, and total system losses
+- Indication of the number of iterations until convergence or non-convergence message
 
-### Interface com Grades DHTMLX
+### Interface with DHTMLX Grids
 
-A entrada e visualização de dados é feita por meio de **grades interativas** baseadas na biblioteca DHTMLX, organizadas em:
+Data input and visualization are done through **interactive grids** based on the DHTMLX library, organized into:
 
-| Grade | Conteúdo |
-|-------|----------|
-| **OPTIONS** | Potência base, máximo de iterações, tolerância e flag de limite Q |
-| **BUS** | Dados de barras: tipo, geração, carga, shunt, tensão e ângulo iniciais, limites de reativo |
-| **BRANCH** | Dados de ramos: resistência, reatância, susceptância shunt, tap e ângulo de defasagem |
-| **BUS RESULT** | Resultados por barra: tensão, ângulo, potências geradas e consumidas |
-| **BRANCH RESULT** | Resultados por ramo: fluxos de P e Q nos dois sentidos e perdas |
+| Grid | Content |
+|------|---------|
+| **OPTIONS** | Base power, maximum iterations, tolerance, and Q limit flag |
+| **BUS** | Bus data: type, generation, load, shunt, initial voltage and angle, reactive limits |
+| **BRANCH** | Branch data: resistance, reactance, shunt susceptance, tap, and phase shift angle |
+| **BUS RESULT** | Results per bus: voltage, angle, generated and consumed powers |
+| **BRANCH RESULT** | Results per branch: P and Q flows in both directions and losses |
 
-### Colaboração em Tempo Real
+### Real-Time Collaboration
 
-A aplicação integra o **TogetherJS** (Mozilla), que permite que múltiplos usuários trabalhem simultaneamente no mesmo caso, com sincronização em tempo real de todas as alterações nas grades (adição/remoção de barras e ramos, edição de células e carregamento de arquivos).
+The application integrates **TogetherJS** (Mozilla), which allows multiple users to work simultaneously on the same case, with real-time synchronization of all changes in the grids (adding/removing buses and branches, editing cells, and loading files).
 
-### Comunicação com a API de Cálculo
+### Communication with the Calculation API
 
-O frontend envia os dados em formato **JSON** via requisição HTTP POST para a API de cálculo (`webapi/nws/v1/loadflow`), que executa o algoritmo de Newton-Raphson no servidor e retorna os resultados para exibição.
+The frontend sends data in **JSON** format via HTTP POST request to the calculation API (`webapi/nws/v1/loadflow`), which executes the Newton-Raphson algorithm on the server and returns the results for display.
 
-## Tecnologias Utilizadas
+## Technologies Used
 
-### Frontend (este repositório)
-- **HTML5 / CSS3:** Estrutura e estilização da interface
-- **JavaScript:** Lógica de cliente e manipulação das grades
-- **jQuery 2.0.3:** Requisições AJAX e manipulação do DOM
-- **DHTMLX:** Componentes de grade interativa (leitura, edição e exibição de dados)
-- **TogetherJS (Mozilla):** Colaboração em tempo real entre usuários
+### Frontend (this repository)
+- **HTML5 / CSS3:** Structure and styling of the interface
+- **JavaScript:** Client logic and grid manipulation
+- **jQuery 2.0.3:** AJAX requests and DOM manipulation
+- **DHTMLX:** Interactive grid components (reading, editing, and displaying data)
+- **TogetherJS (Mozilla):** Real-time collaboration among users
 
-### Backend de Cálculo (webapi — neste repositório)
-- **PHP 8.0+:** API REST implementada com Slim Framework v2, responsável por executar o algoritmo de Newton-Raphson no servidor
-- **Sem banco de dados:** todos os cálculos são realizados em memória a partir dos dados recebidos via JSON
+### Calculation Backend (webapi — in this repository)
+- **PHP 8.0+:** REST API implemented with Slim Framework v2, responsible for executing the Newton-Raphson algorithm on the server
+- **No database:** all calculations are performed in memory from the data received via JSON
 
-### Formato de Dados
-- **JSON:** Formato único para troca de dados entre o frontend, a webapi e os arquivos de casos de teste
+### Data Format
+- **JSON:** Single format for data exchange between the frontend, the webapi, and the test case files
 
-## Casos de Teste
+## Test Cases
 
-A pasta `cases/` contém os arquivos JSON utilizados nos testes computacionais da tese (Apêndice A), que serviram de base para a validação dos resultados em comparação com o MATPOWER:
+The `cases/` folder contains the JSON files used in the computational tests of the thesis (Appendix A), which served as the basis for validating the results compared to MATPOWER:
 
-| Arquivo | Sistema | Barras | Ramos | Seção na tese |
-|---------|---------|--------|-------|---------------|
-| `ieee9bus.json` | IEEE 9 barras | 9 | 9 | A.1 |
-| `ieee57bus.json` | IEEE 57 barras | 57 | 78 | A.2 |
-| `ieee118bus.json` | IEEE 118 barras | 118 | 186 | A.3 |
+| File | System | Buses | Branches | Section in thesis |
+|------|--------|-------|----------|-------------------|
+| `ieee9bus.json` | IEEE 9 buses | 9 | 9 | A.1 |
+| `ieee57bus.json` | IEEE 57 buses | 57 | 78 | A.2 |
+| `ieee118bus.json` | IEEE 118 buses | 118 | 186 | A.3 |
 
-Todos os casos adotam os parâmetros padrão da tese: 100 MVA de potência base, 10 iterações máximas, tolerância de 1×10⁻³ e verificação de limite de potência reativa ativa. Consulte `cases/README.md` para a descrição completa do formato JSON.
+All cases adopt the standard parameters from the thesis: 100 MVA base power, 10 maximum iterations, tolerance of 1×10⁻³, and reactive power limit checking active. See `cases/README.md` for a full description of the JSON format.
 
-### Instalação
+### Installation
 
 ```bash
 git clone https://github.com/tamashiroBR/simulador-web-FP.git
 ```
 
-Abra `index.html` diretamente no navegador ou sirva o diretório raiz por qualquer servidor web.
+Open `index.html` directly in the browser or serve the root directory using any web server.
 
-### Fluxo de Uso
+### Usage Flow
 
-1. **Carregar um caso:** Clique no campo de seleção de arquivo e escolha um `.json` da pasta `cases/`
-2. **Editar dados:** Modifique barras e ramos diretamente nas grades, ou adicione/remova linhas pelos botões **Add Bus**, **Remove Bus**, **Add Branch**, **Remove Branch**
-3. **Executar:** Clique em **Run Load Flow** — os dados são enviados à API e os resultados são exibidos nas grades de resultado
-4. **Colaborar:** Clique em **Start TogetherJS** para convidar outro usuário e trabalhar em tempo real no mesmo caso
+1. **Load a case:** Click the file selection field and choose a `.json` from the `cases/` folder
+2. **Edit data:** Modify buses and branches directly in the grids, or add/remove rows using the **Add Bus**, **Remove Bus**, **Add Branch**, **Remove Branch** buttons
+3. **Run:** Click **Run Load Flow** — the data is sent to the API and the results are displayed in the result grids
+4. **Collaborate:** Click **Start TogetherJS** to invite another user and work in real-time on the same case
 
-## Referências
+## References
 
-- TAMASHIRO, M. A. *Uma estratégia de interação na Web para a análise de sistemas elétricos de potência.* UFU, 2016. Disponível em: [https://repositorio.ufu.br/handle/123456789/18396](https://repositorio.ufu.br/handle/123456789/18396)
+- TAMASHIRO, M. A. *A Web interaction strategy for the analysis of electrical power systems.* UFU, 2016. Available at: [https://repositorio.ufu.br/handle/123456789/18396](https://repositorio.ufu.br/handle/123456789/18396)
 - DHTMLX Documentation: [https://dhtmlx.com/docs/](https://dhtmlx.com/docs/)
 - IEEE Power Systems Test Case Archive: [https://labs.ece.uw.edu/pstca/](https://labs.ece.uw.edu/pstca/)
 - STEVENSON, W. D. *Elements of Power System Analysis.* McGraw-Hill, 1982.
