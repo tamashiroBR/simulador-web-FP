@@ -88,9 +88,19 @@ All cases adopt the standard parameters from the thesis: 100 MVA base power, 10 
 git clone https://github.com/tamashiroBR/simulador-web-FP.git
 ```
 
-Serve the project root directory using any web server (Apache, Nginx, etc.) with PHP 8.0+ and `mod_rewrite` enabled. The project can be placed in **any folder and port** on the server — the frontend automatically detects the base URL at runtime and constructs the API endpoint relative to the current page location.
+The project can be served in two ways:
 
-> **Note:** The API URL is calculated dynamically from `window.location.href`, so no manual configuration of host, port, or subfolder is required after deployment.
+**Option 1: Using the PHP built-in server (recommended for local development)**
+Navigate to the project root and run:
+```bash
+php -S localhost:8000 router.php
+```
+Then access `http://localhost:8000` in your browser. The `router.php` handles the internal API routing.
+
+**Option 2: Using Apache or Nginx**
+Serve the project root directory using any web server with PHP 8.0+ and `mod_rewrite` enabled (for Apache, the `.htaccess` inside `webapi/` handles the routing). The project can be placed in **any folder and port** on the server — the frontend automatically detects the base URL at runtime and constructs the API endpoint relative to the current page location.
+
+> **Note:** The API URL is calculated dynamically from `window.location.origin` and `window.location.pathname`, so no manual configuration of host, port, or subfolder is required after deployment.
 
 ### Usage Flow
 

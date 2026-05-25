@@ -9,6 +9,7 @@ webapi/
 ├── index.php              # Ponto de entrada — define as rotas via Slim Framework v2
 ├── bootstrap.php          # Autoloader PSR-4 para o namespace NDSE
 ├── .htaccess              # Rewrite rules (Apache) — redireciona qualquer rota para index.php, sem caminho fixo
+├── router.php             # (na raiz do projeto) Router para o servidor embutido do PHP (php -S)
 ├── Slim/                  # Slim Framework v2.6.1 (incluído localmente)
 ├── templates/
 │   ├── loadflow.php       # Template do endpoint POST /nws/v1/loadflow
@@ -53,4 +54,4 @@ Executa o cálculo de fluxo de potência pelo método de **Newton-Raphson**.
 ## Requisitos
 
 - **PHP 8.0+** (recomendado PHP 8.1 ou superior)
-- **Servidor web Apache** com `mod_rewrite` habilitado
+- **Servidor web Apache** com `mod_rewrite` habilitado (para produção) OU usar o **servidor embutido do PHP** (`php -S localhost:8000 router.php` na raiz do projeto) para desenvolvimento local.

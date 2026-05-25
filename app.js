@@ -381,7 +381,13 @@ dhtmlxEvent(window,"load",function() {
 
 		// Calcula o caminho base dinamicamente a partir da URL atual da página,
 		// permitindo que o projeto funcione em qualquer servidor, porta ou subpasta.
-		var basePath = window.location.href.replace(/\/[^\/]*$/, '');
+		// Usa window.location.origin + pathname para cobrir todos os cenários:
+		//   http://localhost/ndse/client2/          -> http://localhost/ndse/client2
+		//   http://localhost/ndse/client2/index.html -> http://localhost/ndse/client2
+		//   http://localhost:8000/                  -> http://localhost:8000
+		//   http://localhost:8000/index.html        -> http://localhost:8000
+		var pathname = window.location.pathname.replace(/\/[^\/]*$/, '');
+		var basePath = window.location.origin + (pathname || '');
 		var apiUrl = basePath + '/webapi/nws/v1/loadflow';
 
 		$.ajax({
