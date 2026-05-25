@@ -88,7 +88,9 @@ All cases adopt the standard parameters from the thesis: 100 MVA base power, 10 
 git clone https://github.com/tamashiroBR/simulador-web-FP.git
 ```
 
-Open `index.html` directly in the browser or serve the root directory using any web server.
+Serve the project root directory using any web server (Apache, Nginx, etc.) with PHP 8.0+ and `mod_rewrite` enabled. The project can be placed in **any folder and port** on the server — the frontend automatically detects the base URL at runtime and constructs the API endpoint relative to the current page location.
+
+> **Note:** The API URL is calculated dynamically from `window.location.href`, so no manual configuration of host, port, or subfolder is required after deployment.
 
 ### Usage Flow
 

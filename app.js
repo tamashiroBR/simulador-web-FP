@@ -378,9 +378,15 @@ dhtmlxEvent(window,"load",function() {
 		$("#loss").empty();	
 		gridbusresult.clearAll();
 		gridbranchresult.clearAll();
+
+		// Calcula o caminho base dinamicamente a partir da URL atual da página,
+		// permitindo que o projeto funcione em qualquer servidor, porta ou subpasta.
+		var basePath = window.location.href.replace(/\/[^\/]*$/, '');
+		var apiUrl = basePath + '/webapi/nws/v1/loadflow';
+
 		$.ajax({
 			type: 'POST',
-			url: 'http://localhost/ndse/client2/webapi/nws/v1/loadflow',
+			url: apiUrl,
 			data: json,
 			contentType: 'text/plain',
 			dataType: 'json',
@@ -392,9 +398,9 @@ dhtmlxEvent(window,"load",function() {
 				$("#loss").empty();
 				var msg = "Erro ao conectar com a webapi.\n";
 				if (resp.status === 0) {
-					msg += "Verifique se a webapi está rodando em http://localhost/NDSE/webapi/";
+					msg += "Verifique se a webapi está rodando em: " + apiUrl;
 				} else if (resp.status === 404) {
-					msg += "Endpoint não encontrado (404). Verifique o caminho da webapi e o mod_rewrite do Apache.";
+					msg += "Endpoint não encontrado (404). Verifique o caminho da webapi e o mod_rewrite do Apache.\nURL tentada: " + apiUrl;
 				} else if (resp.status === 500) {
 					msg += "Erro interno na webapi (500). Verifique os logs do PHP/Apache.";
 				} else {

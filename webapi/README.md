@@ -1,6 +1,6 @@
 # NDSE Web API — Servidor de Cálculo
 
-Esta pasta contém a **API REST** responsável por executar o cálculo de fluxo de potência e análise de estabilidade transitória. Ela é o backend consumido pelo cliente (`client2`/`simulador-web-eletrico`).
+Esta pasta contém a **API REST** responsável por executar o cálculo de fluxo de potência e análise de estabilidade transitória. Ela é o backend consumido pelo cliente (`simulador-web-FP`).
 
 ## Arquitetura
 
@@ -8,7 +8,7 @@ Esta pasta contém a **API REST** responsável por executar o cálculo de fluxo 
 webapi/
 ├── index.php              # Ponto de entrada — define as rotas via Slim Framework v2
 ├── bootstrap.php          # Autoloader PSR-4 para o namespace NDSE
-├── .htaccess              # Rewrite rules (Apache) — mapeia /NDSE/webapi/ → index.php
+├── .htaccess              # Rewrite rules (Apache) — redireciona qualquer rota para index.php, sem caminho fixo
 ├── Slim/                  # Slim Framework v2.6.1 (incluído localmente)
 ├── templates/
 │   ├── loadflow.php       # Template do endpoint POST /nws/v1/loadflow
