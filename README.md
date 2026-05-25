@@ -10,9 +10,9 @@ Este software é fruto de uma **tese de doutorado** defendida em outubro de 2016
 O documento completo está disponível no Repositório Institucional da UFU:
 **[https://repositorio.ufu.br/handle/123456789/18396](https://repositorio.ufu.br/handle/123456789/18396)**
 
-**Orientador:** Prof. Geraldo Caixeta Guimarães
+**Orientador:** Prof. PhD Geraldo Caixeta Guimarães
 
-**Banca examinadora:** Prof. Adelio Jose de Moraes (in memoriam), Prof. David Calhau Jorge, Prof. Edgard Afonso Lamounier Júnior, Prof. Sergio Batista da Silva.
+**Banca examinadora:** Prof. Dr Adelio Jose de Moraes (in memoriam), Prof. Dr David Calhau Jorge, Prof. PhD Edgard Afonso Lamounier Júnior, Prof. Dr Sergio Batista da Silva.
 
 ---
 
