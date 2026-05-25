@@ -102,6 +102,16 @@ Serve the project root directory using any web server with PHP 8.0+ and `mod_rew
 
 > **Note:** The API URL is calculated dynamically from `window.location.origin` and `window.location.pathname`, so no manual configuration of host, port, or subfolder is required after deployment.
 
+The table below shows how the API URL is resolved automatically for different deployment scenarios:
+
+| Browser URL | API URL (resolved automatically) |
+|---|---|
+| `http://localhost/ndse/client2/` | `http://localhost/ndse/client2/webapi/nws/v1/loadflow` |
+| `http://localhost/ndse/client2/index.html` | `http://localhost/ndse/client2/webapi/nws/v1/loadflow` |
+| `http://localhost:8000/` | `http://localhost:8000/webapi/nws/v1/loadflow` |
+| `http://localhost:8000/index.html` | `http://localhost:8000/webapi/nws/v1/loadflow` |
+| `http://myserver.com/simulator/` | `http://myserver.com/simulator/webapi/nws/v1/loadflow` |
+
 ### Usage Flow
 
 1. **Load a case:** Click the file selection field and choose a `.json` from the `cases/` folder
