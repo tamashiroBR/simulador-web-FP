@@ -2,7 +2,7 @@
 
 ## Project Origin
 
-This software is part of the doctoral thesis defended at the Federal University of Uberlândia, Faculty of Electrical Engineering. The **doctoral thesis** was defended in October 2016 at the **Federal University of Uberlândia (UFU)**, **Faculty of Electrical Engineering (FEELT)**.
+This software is part of the doctoral thesis defended at the Federal University of Uberlândia, Faculty of Electrical Engineering. The doctoral thesis was defended in October 2016 at the Federal University of Uberlândia (UFU), Faculty of Electrical Engineering (FEELT).
 
 > **TAMASHIRO, Márcio Augusto.** *A Web interaction strategy for the analysis of electrical power systems.* 2016. 127 f. Thesis (Doctorate in Sciences) — Federal University of Uberlândia, Uberlândia, 2016.
 
@@ -17,7 +17,7 @@ The complete document is available in the UFU Institutional Repository:
 
 ## Project Description
 
-This software is part of the simulator that implements a **web application for the analysis of electrical power systems**, exploring two central aspects identified as gaps in existing tools: **real-time collaboration** among users and **interoperability** with other applications.
+This software is part of the simulator that implements a web application for the analysis of electrical power systems, exploring two central aspects identified as gaps in existing tools: real-time collaboration among users and interoperability with other applications.
 
 The motivation stems from the realization that commercial programs for electrical systems analysis, although computationally efficient, are not suitable for educational or research purposes because they do not make their source code available. Academic alternatives, usually written in MATLAB, FORTRAN, or C++, are distributed as desktop applications with user-unfriendly interfaces and no remote access features. This work proposes a web approach that combines accessibility, collaboration, and open source code.
 
@@ -25,17 +25,17 @@ The motivation stems from the realization that commercial programs for electrica
 
 ### Load Flow Analysis
 
-The main module of the application performs the load flow calculation using the **Newton-Raphson method**, allowing:
+The main module of the application performs the load flow calculation using the Newton-Raphson method, allowing:
 
 - Input of bus and branch data directly into editable grids in the interface
 - Configuration of execution parameters: base power (MVA), maximum number of iterations, convergence tolerance, and reactive power limit checking
-- Loading of test cases from **JSON files** via file selection in the browser (no database server required)
+- Loading of test cases from JSON files via file selection in the browser (no database server required)
 - Display of voltage and angle results per bus, active and reactive power flows per branch, and total system losses
 - Indication of the number of iterations until convergence or non-convergence message
 
 ### Interface with DHTMLX Grids
 
-Data input and visualization are done through **interactive grids** based on the DHTMLX library, organized into:
+Data input and visualization are done through interactive grids based on the DHTMLX library, organized into:
 
 | Grid | Content |
 |------|---------|
@@ -47,11 +47,11 @@ Data input and visualization are done through **interactive grids** based on the
 
 ### Real-Time Collaboration
 
-The application integrates **TogetherJS** (Mozilla), which allows multiple users to work simultaneously on the same case, with real-time synchronization of all changes in the grids (adding/removing buses and branches, editing cells, and loading files).
+The application integrates TogetherJS (Mozilla), which allows multiple users to work simultaneously on the same case, with real-time synchronization of all changes in the grids (adding/removing buses and branches, editing cells, and loading files).
 
 ### Communication with the API
 
-The frontend sends data in **JSON** format via HTTP POST request to the calculation API (`webapi/nws/v1/loadflow`), which executes the Newton-Raphson algorithm on the server and returns the results for display.
+The frontend sends data in JSON format via HTTP POST request to the calculation API (`webapi/nws/v1/loadflow`), which executes the Newton-Raphson algorithm on the server and returns the results for display.
 
 ## Technologies Used
 
@@ -97,16 +97,16 @@ php -S localhost:8000 router.php
 Then access `http://localhost:8000` in your browser. The `router.php` handles the internal API routing.
 
 **Option 2: Using Apache or Nginx**
-Serve the project root directory using any web server with PHP 8.0+ and `mod_rewrite` enabled (for Apache, the `.htaccess` inside `webapi/` handles the routing). The project can be placed in **any folder and port** on the server — the frontend automatically detects the base URL at runtime and constructs the API endpoint relative to the current page location.
+Serve the project root directory using any web server with PHP 8.0+ and `mod_rewrite` enabled (for Apache, the `.htaccess` inside `webapi/` handles the routing). The project can be placed in any folder and port on the server — the frontend automatically detects the base URL at runtime and constructs the API endpoint relative to the current page location.
 
 > **Note:** The API URL is calculated dynamically from `window.location.origin` and `window.location.pathname`, so no manual configuration of host, port, or subfolder is required after deployment.
 
 ### Usage Flow
 
 1. **Load a case:** Click the file selection field and choose a `.json` from the `cases/` folder
-2. **Edit data:** Modify buses and branches directly in the grids, or add/remove rows using the **Add Bus**, **Remove Bus**, **Add Branch**, **Remove Branch** buttons
-3. **Run:** Click **Run Load Flow** — the data is sent to the API and the results are displayed in the result grids
-4. **Collaborate:** Click **Start TogetherJS** to invite another user and work in real-time on the same case
+2. **Edit data:** Modify buses and branches directly in the grids, or add/remove rows using the Add Bus, Remove Bus, Add Branch, Remove Branch buttons
+3. **Run:** Click Run Load Flow — the data is sent to the API and the results are displayed in the result grids
+4. **Collaborate:** Click Start TogetherJS to invite another user and work in real-time on the same case
 
 ## References
 
