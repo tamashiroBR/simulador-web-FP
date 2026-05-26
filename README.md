@@ -21,7 +21,7 @@ This software is part of the simulator that implements a **web application for t
 
 The motivation stems from the realization that commercial programs for electrical systems analysis, although computationally efficient, are not suitable for educational or research purposes because they do not make their source code available. Academic alternatives, usually written in MATLAB, FORTRAN, or C++, are distributed as desktop applications with user-unfriendly interfaces and no remote access features. This work proposes a web approach that combines accessibility, collaboration, and open source code.
 
-## Implemented Features
+## Features
 
 ### Load Flow Analysis
 
